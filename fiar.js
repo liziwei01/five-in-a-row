@@ -2,7 +2,7 @@
  * @Author: liziwei01
  * @Date: 2022-09-20 01:44:14
  * @LastEditors: liziwei01
- * @LastEditTime: 2022-09-20 09:19:40
+ * @LastEditTime: 2022-09-20 09:43:16
  * @Description: file content
  */
 // import xmlhttprequest from "xmlhttprequest"
@@ -14,9 +14,8 @@ const chessRadius = 15
 const blackChess = "Black"
 const whiteChess = "White"
 const invalidInput = "Invalid Input"
-
 const BACKEND_IP = "http://www.api-liziwei01-me.work"
-const BACKEND_PORT = ":8888"
+const BACKEND_PORT = ":8887"
 // const START_GAME_ROUTER = "/startGame"
 const CHECK_WINNER_ROUTER = "/checkWinner"
 // const STOP_GAME_ROUTER = "/stopGame"
@@ -90,6 +89,7 @@ function createChess(chessPosition) {
 	// game ends
 	if (winner != "success") {
 		steps = 0
+		drawChess(chessPosition, chessColor)
 		return winnerAppears(winner)
 	}
 	// if it is valid, draw the chess on board
