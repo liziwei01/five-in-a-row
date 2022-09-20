@@ -2,7 +2,7 @@
  * @Author: liziwei01
  * @Date: 2022-09-20 01:44:14
  * @LastEditors: liziwei01
- * @LastEditTime: 2022-09-20 10:11:16
+ * @LastEditTime: 2022-09-20 10:26:09
  * @Description: file content
  */
 // import xmlhttprequest from "xmlhttprequest"
@@ -14,6 +14,7 @@ const chessRadius = 15
 const blackChess = "Black"
 const whiteChess = "White"
 const invalidInput = "Invalid Input"
+const maliciousInput = "game stopped due to some malicious param"
 const BACKEND_IP = "http://www.api-liziwei01-me.work"
 // const BACKEND_IP = "http://localhost"
 const BACKEND_PORT = ":8887"
@@ -83,6 +84,10 @@ function createChess(chessPosition) {
 	const chessColor = getChessColor(steps)
 	// send chess position to backend and check if it is valid and if a winner appears
 	const winner = checkWinner(chessPosition, chessColor, steps)
+	if (winner == maliciousInput) {
+		steps = 0
+		return maliciousAppears()
+	}
 	if (winner == invalidInput) {
 		steps--
 		return
@@ -103,6 +108,13 @@ function checkWinner(chessPosition, chessColor, steps) {
 	xhr.open(GET_METHOD, BACKEND_IP + BACKEND_PORT + CHECK_WINNER_ROUTER + "?chessX=" + chessPosition.x + "&chessY=" + chessPosition.y + "&chessColor=" + chessColor + "&steps=" + steps, false)
 	xhr.send()
 	return xhr.responseText
+}
+
+function maliciousAppears() {
+	var chessboard = document.getElementById("chessboard")
+	var turn = document.getElementById("turn")
+	chessboard.removeEventListener("click", boardOnClick)
+	turn.innerHTML = "<p id=\"turn\">" + maliciousInput + " </p>";
 }
 
 function winnerAppears(winner) {
