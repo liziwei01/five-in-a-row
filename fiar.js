@@ -2,7 +2,7 @@
  * @Author: liziwei01
  * @Date: 2022-09-20 01:44:14
  * @LastEditors: liziwei01
- * @LastEditTime: 2022-09-20 04:35:11
+ * @LastEditTime: 2022-09-20 07:32:03
  * @Description: file content
  */
 // import xmlhttprequest from "xmlhttprequest"
@@ -14,11 +14,14 @@ const chessRadius = 15
 const blackChess = "Black"
 const whiteChess = "White"
 const invalidInput = "Invalid Input"
-const backendAddress = "localhost:8888"
-const startGameRouter = "/startGame"
-const checkWinnerRouter = "/checkWinner"
-const getMethod = "GET"
-const postMethod = "POST"
+
+const BACKEND_IP = "api-liziwei01-me.work"
+const BACKEND_PORT = ":8888"
+const START_GAME_ROUTER = "/startGame"
+const CHECK_WINNER_ROUTER = "/checkWinner"
+const STOP_GAME_ROUTER = "/stopGame"
+const GET_METHOD = "GET"
+const POST_METHOD = "POST"
 
 var steps = 0
 
@@ -76,28 +79,31 @@ function boardOnClick(event) {
 
 // check whether the click is valid and proceed to draw a chess
 function createChess(chessPosition) {
+	steps++
+	const chessColor = getChessColor(steps)
 	// send chess position to backend and check if it is valid and if a winner appears
-	const winner = checkWinner(chessPosition)
+	const winner = checkWinner(chessPosition, chessColor, steps)
 	if (winner == invalidInput) {
+		steps--
 		return
 	}
 	// game ends
-	if (winner != undefined) {
+	if (winner != "success") {
+		steps = 0
 		return winnerAppears(winner)
 	}
 	// if it is valid, draw the chess on board
-	steps++
-	const chessColor = getChessColor(steps)
 	drawChess(chessPosition, chessColor)
 	whosTurn(chessColor)
 }
 
-function checkWinner(chessPosition) {
-	var xml = new XMLHttpRequest()
-	xml.open(postMethod, backendAddress + checkWinnerRouter)
-	xml.setRequestHeader("Content-Type","text/html;charset=uft-8")
-	xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;"); 
-	xml.send("chessX=" + chessPosition.x + "&chessY=" + chessPosition.y)
+function checkWinner(chessPosition, chessColor, steps) {
+	var xhr = new XMLHttpRequest()
+	xhr.open(POST_METHOD, BACKEND_IP + BACKEND_PORT + CHECK_WINNER_ROUTER, false)
+	xhr.setRequestHeader("Content-Type","text/html;charset=uft-8")
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;"); 
+	xhr.send("chessX=" + chessPosition.x + "&chessY=" + chessPosition.y + "&chessColor=" + chessColor + "&steps=", steps)
+	return xhr.responseText
 }
 
 function winnerAppears(winner) {
