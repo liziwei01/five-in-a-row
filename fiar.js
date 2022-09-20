@@ -2,7 +2,7 @@
  * @Author: liziwei01
  * @Date: 2022-09-20 01:44:14
  * @LastEditors: liziwei01
- * @LastEditTime: 2022-09-20 08:01:32
+ * @LastEditTime: 2022-09-20 08:42:28
  * @Description: file content
  */
 // import xmlhttprequest from "xmlhttprequest"
@@ -17,9 +17,9 @@ const invalidInput = "Invalid Input"
 
 const BACKEND_IP = "http://www.api-liziwei01-me.work"
 const BACKEND_PORT = ":8887"
-const START_GAME_ROUTER = "/startGame"
+// const START_GAME_ROUTER = "/startGame"
 const CHECK_WINNER_ROUTER = "/checkWinner"
-const STOP_GAME_ROUTER = "/stopGame"
+// const STOP_GAME_ROUTER = "/stopGame"
 const GET_METHOD = "GET"
 const POST_METHOD = "POST"
 
@@ -99,7 +99,7 @@ function createChess(chessPosition) {
 
 function checkWinner(chessPosition, chessColor, steps) {
 	var xhr = new XMLHttpRequest()
-	xhr.open(POST_METHOD, BACKEND_IP + BACKEND_PORT + CHECK_WINNER_ROUTER, false)
+	xhr.open(GET_METHOD, BACKEND_IP + BACKEND_PORT + CHECK_WINNER_ROUTER, false)
 	xhr.setRequestHeader("Content-Type","text/html;charset=uft-8")
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;"); 
 	xhr.send("chessX=" + chessPosition.x + "&chessY=" + chessPosition.y + "&chessColor=" + chessColor + "&steps=", steps)
