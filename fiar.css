@@ -1,0 +1,30 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+div {
+	width: 470px;
+	margin: 0 auto;
+}
+
+h1{
+	width: 470px;
+	height: 50px;
+	text-align: center;
+	margin-top: 0px;
+}
+
+p{
+	width: 470px;
+	height: 40px;
+	text-align: center;
+	margin-top: 5px;
+	font-size: 20px;
+}
+
+canvas {
+	/* margin: 0 auto; */
+	/* border:1px solid #000000; */
+	background-color: rgb(236, 156, 58);
+}
