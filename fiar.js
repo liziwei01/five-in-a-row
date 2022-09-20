@@ -2,7 +2,7 @@
  * @Author: liziwei01
  * @Date: 2022-09-20 01:44:14
  * @LastEditors: liziwei01
- * @LastEditTime: 2022-09-20 07:36:27
+ * @LastEditTime: 2022-09-20 07:52:37
  * @Description: file content
  */
 // import xmlhttprequest from "xmlhttprequest"
@@ -15,7 +15,7 @@ const blackChess = "Black"
 const whiteChess = "White"
 const invalidInput = "Invalid Input"
 
-const BACKEND_IP = "www.api-liziwei01-me.work"
+const BACKEND_IP = "http://www.api-liziwei01-me.work"
 const BACKEND_PORT = ":8888"
 const START_GAME_ROUTER = "/startGame"
 const CHECK_WINNER_ROUTER = "/checkWinner"
